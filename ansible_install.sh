@@ -57,11 +57,13 @@ if [ ! "$(which ansible-playbook)" ]; then
     # One more time with EPEL to avoid failures
     yum_makecache_retry
 
-    yum -y install python3 python3-devel python3-cryptography python3-pip python3-jinja2 python3-httplib2 git rust-toolset
+    yum -y install python3 python3-devel python3-cryptography python3-pip python3-jinja2 python3-httplib2 git
     [ "X$?" != X0 ] && yum -y install python-pip PyYAML python-jinja2 python-httplib2 python-keyczar python-paramiko git
-    [ -n "$(grep ':8' /etc/system-release-cpe)" ] && yum -y install python3-pyyaml python3-paramiko python3-PyMySQL
+    [ -n "$(grep ':8' /etc/system-release-cpe)" ] && yum -y install python3-pyyaml python3-paramiko python3-PyMySQL rust-toolset
     [ -n "$(grep ':7' /etc/system-release-cpe)" ] && yum -y install python36-PyYAML libselinux-python3
     set -x
+    # Only for testing
+    [ -n "$(grep ':7' /etc/system-release-cpe)" ] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     echo $PATH
     ls /usr/bin/w*
     # If python-pip install failed and setuptools exists, try that
