@@ -65,6 +65,7 @@ if [ ! "$(which ansible-playbook)" ]; then
     [ -n "$(grep ':7' /etc/system-release-cpe)" ] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && export PATH=$PATH:$HOME/.cargo/bin
     which rustc
     rustc --version
+    export CRYPTOGRAPHY_DONT_BUILD_RUST=1
     # If python-pip install failed and setuptools exists, try that
     if [ -z "$(which pip3)" ] && [ -z "$(which easy_install)" ]; then
       yum -y install python3-setuptools
