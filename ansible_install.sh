@@ -76,7 +76,7 @@ if [ ! "$(which ansible-playbook)" ]; then
 
     # Install passlib for encrypt
     yum -y groupinstall "Development tools"
-    yum -y install sshpass libffi-devel openssl-devel && pip3 install setuptools-rust && pip3 install pyrax pysphere boto passlib dnspython
+    yum -y install sshpass libffi-devel openssl-devel && pip3 install setuptools-rust && pip3 install cryptography==3.3.2 && pip3 install pyrax pysphere boto passlib dnspython
 
     # Install Ansible module dependencies
     yum -y install bzip2 file findutils git gzip hg svn sudo tar unzip xz zip
