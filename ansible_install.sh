@@ -150,6 +150,7 @@ if [ ! "$(which ansible-playbook)" ]; then
 
   mkdir -p /etc/ansible/
   printf "%s\n" "[local]" "localhost" > /etc/ansible/hosts
+  set -x
   if [ -z "$ANSIBLE_VERSION" -a -n "$(which pip3)" ]; then
     pip3 install -q ansible
   elif [ -n "$(which pip3)" ]; then
@@ -163,6 +164,7 @@ if [ ! "$(which ansible-playbook)" ]; then
   fi
   [ -n "$(grep ':8' /etc/system-release-cpe 2>/dev/null)" ] && ln -s /usr/local/bin/ansible /usr/bin/
   [ -n "$(grep ':8' /etc/system-release-cpe 2>/dev/null)" ] && ln -s /usr/local/bin/ansible-playbook /usr/bin/
+  set +x
   if [ -f /etc/centos-release ] || [ -f /etc/redhat-release ] || [ -f /etc/oracle-release ] || [ -f /etc/system-release ]; then
     # Fix for pycrypto pip / yum issue
     # https://github.com/ansible/ansible/issues/276
