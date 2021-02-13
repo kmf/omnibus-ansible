@@ -62,7 +62,7 @@ if [ ! "$(which ansible-playbook)" ]; then
     [ -n "$(grep ':8' /etc/system-release-cpe)" ] && yum -y install python3-pyyaml python3-paramiko python3-PyMySQL python3-cryptography python3-jinja2 rust-toolset
     [ -n "$(grep ':7' /etc/system-release-cpe)" ] && yum -y install python36-PyYAML libselinux-python3
     # Only for testing
-    [ -n "$(grep ':7' /etc/system-release-cpe)" ] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    [ -n "$(grep ':7' /etc/system-release-cpe)" ] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && export PATH=$PATH:$HOME/.cargo/bin
     # If python-pip install failed and setuptools exists, try that
     if [ -z "$(which pip3)" ] && [ -z "$(which easy_install)" ]; then
       yum -y install python3-setuptools
