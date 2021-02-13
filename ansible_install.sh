@@ -57,9 +57,9 @@ if [ ! "$(which ansible-playbook)" ]; then
     # One more time with EPEL to avoid failures
     yum_makecache_retry
 
-    yum -y install python3 python3-devel python3-cryptography python3-pip python3-jinja2 python3-httplib2 git
+    yum -y install python3 python3-devel python3-pip python3-httplib2 git curl which
     [ "X$?" != X0 ] && yum -y install python-pip PyYAML python-jinja2 python-httplib2 python-keyczar python-paramiko git
-    [ -n "$(grep ':8' /etc/system-release-cpe)" ] && yum -y install python3-pyyaml python3-paramiko python3-PyMySQL rust-toolset
+    [ -n "$(grep ':8' /etc/system-release-cpe)" ] && yum -y install python3-pyyaml python3-paramiko python3-PyMySQL python3-cryptography python3-jinja2 rust-toolset
     [ -n "$(grep ':7' /etc/system-release-cpe)" ] && yum -y install python36-PyYAML libselinux-python3
     set -x
     # Only for testing
