@@ -57,7 +57,7 @@ if [ ! "$(which ansible-playbook)" ]; then
     # One more time with EPEL to avoid failures
     yum_makecache_retry
 
-    yum -y install python3 python3-devel python3-cryptography python3-pip python3-jinja2 python3-httplib2 git
+    yum -y install python3 python3-devel python3-cryptography python3-pip python3-jinja2 python3-httplib2 git rust-toolset
     [ "X$?" != X0 ] && yum -y install python-pip PyYAML python-jinja2 python-httplib2 python-keyczar python-paramiko git
     [ -n "$(grep ':8' /etc/system-release-cpe)" ] && yum -y install python3-pyyaml python3-paramiko python3-PyMySQL
     [ -n "$(grep ':7' /etc/system-release-cpe)" ] && yum -y install python36-PyYAML libselinux-python3
@@ -86,7 +86,7 @@ if [ ! "$(which ansible-playbook)" ]; then
     dpkg_check_lock && apt-get update -q
 
     # Install required Python libs and pip
-    apt_install python3-pip python3-yaml python3-jinja2 python3-httplib2 python3-netaddr python3-paramiko python3-pkg-resources libffi-dev python3-all-dev python3-mysqldb python3-selinux python3-boto
+    apt_install python3-pip python3-yaml python3-jinja2 python3-httplib2 python3-netaddr python3-paramiko python3-pkg-resources libffi-dev python3-all-dev python3-mysqldb python3-selinux python3-boto rustc
     [ "X$?" != X0 ] && apt_install python-pip python-yaml python-jinja2 python-httplib2 python-netaddr python-paramiko python-pkg-resources libffi-dev python-all-dev python-mysqldb python-selinux python-boto
     [ -n "$( dpkg_check_lock && apt-cache search python-keyczar )" ] && apt_install python-keyczar
     dpkg_check_lock && apt-cache search ^git$ | grep -q "^git\s" && apt_install git || apt_install git-core
