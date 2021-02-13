@@ -63,6 +63,8 @@ if [ ! "$(which ansible-playbook)" ]; then
     [ -n "$(grep ':7' /etc/system-release-cpe)" ] && yum -y install python36-PyYAML libselinux-python3
     # Only for testing
     [ -n "$(grep ':7' /etc/system-release-cpe)" ] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && export PATH=$PATH:$HOME/.cargo/bin
+    which rustc
+    rustc --version
     # If python-pip install failed and setuptools exists, try that
     if [ -z "$(which pip3)" ] && [ -z "$(which easy_install)" ]; then
       yum -y install python3-setuptools
@@ -73,7 +75,7 @@ if [ ! "$(which ansible-playbook)" ]; then
 
     # Install passlib for encrypt
     yum -y groupinstall "Development tools"
-    yum -y install sshpass libffi-devel openssl-devel && pip3 install pyrax pysphere boto passlib dnspython
+    yum -y install sshpass libffi-devel openssl-devel && pip3 install setuptools-rust && pip3 install pyrax pysphere boto passlib dnspython
 
     # Install Ansible module dependencies
     yum -y install bzip2 file findutils git gzip hg svn sudo tar unzip xz zip
