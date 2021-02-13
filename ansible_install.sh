@@ -61,11 +61,8 @@ if [ ! "$(which ansible-playbook)" ]; then
     [ "X$?" != X0 ] && yum -y install python-pip PyYAML python-jinja2 python-httplib2 python-keyczar python-paramiko git
     [ -n "$(grep ':8' /etc/system-release-cpe)" ] && yum -y install python3-pyyaml python3-paramiko python3-PyMySQL python3-cryptography python3-jinja2 rust-toolset
     [ -n "$(grep ':7' /etc/system-release-cpe)" ] && yum -y install python36-PyYAML libselinux-python3
-    set -x
     # Only for testing
     [ -n "$(grep ':7' /etc/system-release-cpe)" ] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    echo $PATH
-    ls /usr/bin/w*
     # If python-pip install failed and setuptools exists, try that
     if [ -z "$(which pip3)" ] && [ -z "$(which easy_install)" ]; then
       yum -y install python3-setuptools
@@ -79,9 +76,8 @@ if [ ! "$(which ansible-playbook)" ]; then
     yum -y install sshpass libffi-devel openssl-devel && pip3 install pyrax pysphere boto passlib dnspython
 
     # Install Ansible module dependencies
-    yum -y install bzip2 file findutils git gzip hg svn sudo tar which unzip xz zip
+    yum -y install bzip2 file findutils git gzip hg svn sudo tar unzip xz zip
     [ -n "$(yum search procps-ng)" ] && yum -y install procps-ng || yum -y install procps
-    set +x
 
   elif [ -f /etc/debian_version ] || grep -qi ubuntu /etc/lsb-release || grep -qi ubuntu /etc/os-release; then
     wait_for_cloud_init
