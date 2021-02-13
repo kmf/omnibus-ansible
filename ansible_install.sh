@@ -57,10 +57,13 @@ if [ ! "$(which ansible-playbook)" ]; then
     # One more time with EPEL to avoid failures
     yum_makecache_retry
 
-    yum -y install python-pip PyYAML python-jinja2 python-httplib2 python-keyczar python-paramiko git
+    yum -y install python3 python3-devel python3-cryptography python3-pip python3-jinja2 python3-httplib2 git
+    [ "X$?" != X0 ] && yum -y install python-pip PyYAML python-jinja2 python-httplib2 python-keyczar python-paramiko git
+    [ -n "$(grep ':8' /etc/system-release-cpe)" ] && yum -y install python3-pyyaml python3-paramiko python3-PyMySQL
+    [ -n "$(grep ':7' /etc/system-release-cpe)" ] && yum -y install python36-PyYAML libselinux-python3
     # If python-pip install failed and setuptools exists, try that
     if [ -z "$(which pip)" ] && [ -z "$(which easy_install)" ]; then
-      yum -y install python-setuptools
+      yum -y install python3-setuptools
       easy_install pip
     elif [ -z "$(which pip)" ] && [ -n "$(which easy_install)" ]; then
       easy_install pip
@@ -68,12 +71,10 @@ if [ ! "$(which ansible-playbook)" ]; then
 
     # Install passlib for encrypt
     yum -y groupinstall "Development tools"
-    yum -y install sshpass libffi-devel openssl-devel && pip install pyrax pysphere boto passlib dnspython
+    yum -y install sshpass libffi-devel openssl-devel && pip3 install pyrax pysphere boto passlib dnspython
 
     # Install Ansible module dependencies
     yum -y install bzip2 file findutils git gzip hg svn sudo tar which unzip xz zip
-    [ ! -n "$(grep ':8' /etc/system-release-cpe)" ] && yum -y install libselinux-python python-devel MySQL-python
-    [ -n "$(grep ':8' /etc/system-release-cpe)" ] && yum -y install python36-devel python3-PyMySQL python3-pip
     [ -n "$(yum search procps-ng)" ] && yum -y install procps-ng || yum -y install procps
 
   elif [ -f /etc/debian_version ] || grep -qi ubuntu /etc/lsb-release || grep -qi ubuntu /etc/os-release; then
