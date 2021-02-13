@@ -162,8 +162,10 @@ if [ ! "$(which ansible-playbook)" ]; then
     pip install -q six --upgrade
     pip install -q ansible=="$ANSIBLE_VERSION"
   fi
-  [ -n "$(grep ':8' /etc/system-release-cpe 2>/dev/null)" ] && ln -s /usr/local/bin/ansible /usr/bin/
-  [ -n "$(grep ':8' /etc/system-release-cpe 2>/dev/null)" ] && ln -s /usr/local/bin/ansible-playbook /usr/bin/
+  [ -n "$(egrep ':[78]' /etc/system-release-cpe 2>/dev/null)" ] && ln -s /usr/local/bin/ansible /usr/bin/
+  [ -n "$(egrep ':[78]' /etc/system-release-cpe 2>/dev/null)" ] && ln -s /usr/local/bin/ansible-playbook /usr/bin/
+  which ansible
+  ansible --version
   set +x
   if [ -f /etc/centos-release ] || [ -f /etc/redhat-release ] || [ -f /etc/oracle-release ] || [ -f /etc/system-release ]; then
     # Fix for pycrypto pip / yum issue
