@@ -59,6 +59,9 @@ if [ ! "$(which ansible-playbook)" ]; then
 
     yum -y install python3 python3-devel python3-pip git curl which
     [ "X$?" != X0 ] && yum -y install python-pip PyYAML python-jinja2 python-httplib2 python-keyczar python-paramiko git
+    set -x
+    cat /etc/system-release-cpe
+    set +x
     [ -n "$(grep ':8' /etc/system-release-cpe)" ] && yum -y install python3-pyyaml python3-paramiko python3-PyMySQL python3-cryptography python3-jinja2 rust-toolset
     [ -n "$(grep ':7' /etc/system-release-cpe)" ] && yum -y install python36-PyYAML libselinux-python3
     # Only for testing
