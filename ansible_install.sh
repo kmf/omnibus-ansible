@@ -169,6 +169,9 @@ if [ ! "$(which ansible-playbook)" ]; then
   [ -n "$(egrep ':[78]' /etc/system-release-cpe 2>/dev/null)" ] && ln -s /usr/local/bin/ansible-playbook /usr/bin/
   which ansible
   ansible --version
+  # Make Ansible Useful
+  ansible-galaxy collection install community.general
+
   set +x
   if [ -f /etc/centos-release ] || [ -f /etc/redhat-release ] || [ -f /etc/oracle-release ] || [ -f /etc/system-release ]; then
     # Fix for pycrypto pip / yum issue
