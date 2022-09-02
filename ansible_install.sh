@@ -118,7 +118,7 @@ if [ ! "$(which ansible-playbook)" ]; then
     # Install Ansible module dependencies
     apt_install bzip2 file findutils git gzip mercurial procps subversion sudo tar debianutils unzip xz-utils zip
 
-  elif [ -f /etc/SuSE-release ] || grep -qi opensuse /etc/os-release; then
+  elif [ -f /etc/SuSE-release ] || grep -i opensuse /etc/os-release; then
     zypper --quiet --non-interactive refresh
 
     # Install required Python libs and pip
